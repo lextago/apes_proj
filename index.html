@@ -64,7 +64,7 @@
     from pyodide.http import open_url
     from pyodide.ffi import create_proxy
 
-    url = ("https://raw.githubusercontent.com/lextago/apes_proj/main/2022-cook-county.csv")
+    url = ("https://raw.githubusercontent.com/lextago/apes_proj/main/aqi2022-cook-county.csv")
 
     data = pd.read_csv(open_url(url))
     x = data[["CO", "Ozone", "PM10", "PM25", "NO2"]].values

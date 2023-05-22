@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>AQI Predictor</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+  <script src='main.js'></script>
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+</head>
+
+
+<body>
+
+  <h2>
+    <a href="index.html">Home</a>
+    &nbsp
+    <a href="predictor.html">Predictor</a>
+    &nbsp
+    <a href="process.html">Process</a>
+    &nbsp
+    <a href="data.html">Data</a>
+    &nbsp
+  </h2>
+
+  <h1>AQI Predictor</h1>
+
+  <label>CO Level: </label>
+  <input type="text" id="co_input">
+  <label>ppm</label>
+  <br><br>
+  <label>Ozone Level: </label>
+  <input type="text" id="oz_input">
+  <label>ppb</label>
+  <br><br>
+  <label>PM10 Level: </label>
+  <input type="text" id="pm10_input">
+  <label>ug/m3</label>
+  <br><br>
+  <label>PM25 Level: </label>
+  <input type="text" id="pm25_input">
+  <label>ug/m3</label>
+  <br><br>
+  <label>NO2 Level: </label>
+  <input type="text" id="no2_input">
+  <label>ppb</label>
+  <br><br>
+  <button id="submit-button" type="submit" py-click="my_function()">Submit</button>
+  <br>
+  <div id="output"></div>
+  <div id="category"></div>
+
+  <py-config>
+    packages = ["numpy", "pandas", "matplotlib", "scikit-learn"]
+  </py-config>
+
+  <py-script>
+    #predict with 2d list!!
+
+    import pandas as pd
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    from sklearn.linear_model import LinearRegression
+    from sklearn.model_selection import train_test_split
+    from pyodide.http import open_url
+    from pyodide.ffi import create_proxy
+
+    url = ("https://raw.githubusercontent.com/lextago/apes_proj/main/aqi2022-cook-county.csv")
+
+    data = pd.read_csv(open_url(url))
+    x = data[["CO", "Ozone", "PM10", "PM25", "NO2"]].values
+    y = data["Overall AQI Value"].values
+
+    xtrain, xtest, ytrain, ytest = train_test_split(x, y)
+
+    model = LinearRegression().fit(xtrain, ytrain)
+    
+    def my_function():
+
+      co_level = int(Element('co_input').element.value)
+      oz_level = int(Element('oz_input').element.value)
+      pm10_level = int(Element('pm10_input').element.value)
+      pm25_level = int(Element('pm25_input').element.value)
+      no2_level = int(Element('no2_input').element.value)
+
+      predict = round(model.predict([[co_level, oz_level, pm10_level, pm25_level, no2_level]])[0],1)
+
+      Element('output').element.innerText = predict
+
+      #0 - 50 : good
+      #51 - 100 : moderate
+      #101 - 150 : unhealthy for sensitive groups
+      #151 - 200 : unhealthy
+      #201 - 300 : very unhealhty
+      #301 - 500 : hazardous
+
+      if predict > 301: category = "Hazardous"
+      elif predict > 300: category = "Very Unhealthy"
+      elif predict > 200: category = "Unhealthy"
+      elif predict > 150: category = "Unhealthy for Sensitive Groups"
+      elif predict > 100: category = "Moderate"
+      else: category = "Good"
+
+      Element('category').element.innerText = "AQI Category: " + category
+
+
+    </py-script>
+  
+</body>
+
+
+</html>

@@ -1,4 +1,28 @@
+h1{
+    font-family: "Lucida Console", Arial;
+}
+
 h2{
     font-family: "Lucida Console", Arial;
     display: inline;
+}
+
+h3{
+    font-family: "Lucida Console", Arial;
+}
+
+h4{
+    font-family: "Lucida Console", Arial;
+}
+
+h5{
+    font-family: "Lucida Console", Arial;
+}
+
+p{
+    font-family: "Lucida Console", Arial;
+}
+
+div{
+    font-family: "Lucida Console", Arial;
 }

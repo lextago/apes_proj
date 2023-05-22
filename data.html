@@ -9,15 +9,8 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
   <script src='main.js'></script>
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 
 </head>
-
-<py-config>
-    packages = ["pandas"]
-</py-config>
-
 
 <body>
 
@@ -36,29 +29,19 @@
   <br>
   <p><b><u>Please be patient while the website loads!</b></u></p>
 
-  <h5 class="lucida">
-    <a href="https://raw.githubusercontent.com/lextago/apes_proj/main/aqi2022-cook-county.csv">CSV raw file</a>
-    &nbsp
-    &nbsp
-    <a href="https://docs.google.com/spreadsheets/d/1t14gggLJ4N0XOviw_R_wfRCL5cmPJ78sr3iWQ7pxG4c/edit?usp=sharing">CSV full data</a>
-    <br>
-    <p>Source: <a href="https://www.epa.gov/outdoor-air-quality-data/air-quality-index-daily-values-report">EPA</a></p>
-  </h5>
+  <br>
+  <p>
+  This is the CSV file that the program is using. There are 365 rows with 6 columns. I'm sure you can figure it out... <br>
+  <a href="https://raw.githubusercontent.com/lextago/apes_proj/main/aqi2022-cook-county.csv" target="_blank" rel="noopener noreferrer"> Shortened CSV data - Github RAW CSV</a>
+  </p>
+  <br>
+  <p>
+  This is the full CSV on google sheets which was downloaded from the EPA website. <br>
+  <a href="https://docs.google.com/spreadsheets/d/1t14gggLJ4N0XOviw_R_wfRCL5cmPJ78sr3iWQ7pxG4c/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Full CSV data - Google Sheets</a>
+  </p>
+  <br>
+  <p>Source: <a href="https://www.epa.gov/outdoor-air-quality-data/air-quality-index-daily-values-report" target="_blank" rel="noopener noreferrer">EPA</a></p>
 
-  <h1>Data</h1>
-
-  <py-script>
-    import pandas as pd
-
-    from pyodide.http import open_url
-
-    url = ("https://raw.githubusercontent.com/lextago/apes_proj/main/aqi2022-cook-county.csv")
-
-    data = pd.read_csv(open_url(url))
-
-    print(data)
-
-  </py-script>
   
 </body>
 

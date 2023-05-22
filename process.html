@@ -1,9 +1,13 @@
 <html>
   <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Process</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <script src='main.js'></script>
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
   </head>
 
 
@@ -23,8 +27,15 @@
     <p><b><u>Please be patient while the website loads!</b></u></p>
 
     <h3>How it Works:</h3>
-    <p>The <a href="data.html">data</a> being used is a csv file.</p>
-    <p>The program uses a library called pandas, which splits the data into x values and y.</p>
+    <p>The <b><a href="data.html">data</a></b> being used is a csv file.<br>
+    The program uses a <b><a href="https://data-flair.training/blogs/python-libraries/" target="_blank" rel="noopener noreferrer">library</a></b> called pandas, which splits the data into x values and y.<br>
+    The program uses another library called scikit-learn, which splits the pairs of x and y into <b><a href="https://builtin.com/data-science/train-test-split#:~:text=let%E2%80%99s%20get%20started.-,What%20Is%20the%20Train%20Test%20Split%20Procedure%3F,-Train%20test%20split" target="_blank" rel="noopener noreferrer">training and testing</a></b> data.<br>
+    In short, the training data is used to <u>train</u> the model, and the testing data is used to <u>test</u> the model.<br><br>
+    The program then creates a <b><a href="https://www.scribbr.com/statistics/multiple-linear-regression/#:~:text=Visualizing%20the%20results%20in%20a%20graph" target="_blank" rel="noopener noreferrer">multivariable linear regression</a></b> model using the training data.<br>
+    The model creates regression lines to find the correlation between the x and y.<br>
+    Lastly, the model attempts to predict the y by plotting the testing data on the graph, predicting the y on the regression line, and finds the <br>
+      accuracy by comparing the line to the points on the graph
+    </p>
 
     <p id="text1"></p>
 

@@ -100,12 +100,14 @@
       #201 - 300 : very unhealhty
       #301 - 500 : hazardous
 
-      if predict > 301: category = "Hazardous"
+      if predict > 500: category = "Christ Almighty! Did a nuclear fallout happen outside???"
+      elif predict > 301: category = "Hazardous"
       elif predict > 300: category = "Very Unhealthy"
       elif predict > 200: category = "Unhealthy"
       elif predict > 150: category = "Unhealthy for Sensitive Groups"
       elif predict > 100: category = "Moderate"
-      else: category = "Good"
+      elif predict > 0: category = "Good"
+      else: category = "How did you even get this value?"
 
       Element('category').element.innerText = "AQI Category: " + category
 

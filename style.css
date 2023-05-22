@@ -7,22 +7,17 @@ h2{
     display: inline;
 }
 
-h3{
-    font-family: "Lucida Console", Arial;
-}
-
-h4{
-    font-family: "Lucida Console", Arial;
-}
-
-h5{
-    font-family: "Lucida Console", Arial;
-}
-
 p{
     font-family: "Lucida Console", Arial;
 }
 
-div{
+.lucida{
     font-family: "Lucida Console", Arial;
+}
+
+#rect{
+    width: 500px;
+    height:100px;
+    padding: 10px;
+    border: 1px solid black;
 }

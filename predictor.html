@@ -17,20 +17,26 @@
 
 <body>
 
-  <h2>
-    <a href="index.html">Home</a>
-    &nbsp
-    <a href="predictor.html">Predictor</a>
-    &nbsp
-    <a href="process.html">Process</a>
-    &nbsp
-    <a href="data.html">Data</a>
-    &nbsp
-  </h2>
+  <div style = "position:relative; background-color: #90E0EF;">
+    <h2 class ="lucida">
+      <a href="index.html">Home</a>
+      &nbsp
+      <a href="predictor.html">Predictor</a>
+      &nbsp
+      <a href="process.html">Process</a>
+      &nbsp
+      <a href="data.html">Data</a>
+      &nbsp
+    </h2>
+  </div>
+  <br>
+
   <p><b><u>Please be patient while the website loads!</b></u></p>
 
-  <h1>AQI Predictor</h1>
-  <p>Ok</p>
+  <h1 class="lucida">AQI Predictor</h1>
+  <p>Enter in the values into the boxes and press the 'submit' button.</p>
+  <p>The predicted AQI value will appear in the 'output' box, as well as its category.</p>
+  <p><b>Make sure to have values inside every box.</b></p>
   <br><br>
 
   <label>CO Level: </label>
@@ -56,9 +62,10 @@
   <button id="submit-button" type="submit" py-click="my_function()">Submit</button>
   <br>
   <h3><u>Output:</u></h3>
-  <br>
-  <div id="output"></div>
-  <div id="category"></div>
+  <div id="rect">
+    <p id="output"></p>
+    <p id="category"></p>
+  </div>
 
   <py-config>
     packages = ["numpy", "pandas", "matplotlib", "scikit-learn"]

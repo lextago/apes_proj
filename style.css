@@ -60,3 +60,9 @@ p{
     margin-right:10vw;
     background-color: #CAF0F8;
 }
+
+#aqi_img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -15,56 +15,78 @@
 </head>
 
 
-<body>
+<body style="background-color: white;">
 
-  <div style = "position:relative; background-color: #90E0EF;">
-    <h2 class ="lucida">
-      <a href="index.html">Home</a>
+  <header id="sitehead">
+    <h2>
+      <p style="color:white; display: inline">AQI Predictor by Alex Tago</p>
+      &nbsp &nbsp &nbsp &nbsp
+      <a id="noline" href="index.html">Home</a>
       &nbsp
-      <a href="predictor.html">Predictor</a>
+      <a id="noline" href="predictor.html">Predictor</a>
       &nbsp
-      <a href="process.html">Process</a>
+      <a id="noline" href="process.html">Process</a>
       &nbsp
-      <a href="data.html">Data</a>
+      <a id="noline" href="data.html">Data</a>
       &nbsp
     </h2>
-  </div>
+  </header>
+
+  <div id="container">
+  <p id="top"><b><u>Please be patient while the website loads!</b></u></p>
+
+  <h1 class="title">AQI Predictor</h1>
+  <p>The predicted AQI value will appear in the 'output' box, as well as its category.</p>
+  <p><b>Make sure to have values inside every available box.</b></p>
+  <p>Not sure what values to put? Check <b><a href="https://www.accuweather.com/en/us/chicago/60608/air-quality-index/348308#:~:text=Learn%20more%20at-,Current%20Pollutants,-Air%20Quality%20Scale">weather websites</a></b> for measures of pollutants in your area!</p>
   <br>
 
-  <p><b><u>Please be patient while the website loads!</b></u></p>
+  <div>
+    <label>Choose Pollutants: </label>&nbsp&nbsp&nbsp&nbsp
+    <label>CO</label>
+    <input type="checkbox" id="co_check" name="checkbox" onClick="toggleoff();enablein('co_check','co_input')" py-click="checkbox_xdata()">&nbsp&nbsp
+    <label>O3</label>
+    <input type="checkbox" id="oz_check" name="checkbox" onClick="toggleoff();enablein('oz_check','oz_input')" py-click="checkbox_xdata()">&nbsp&nbsp
+    <label>PM10</label>
+    <input type="checkbox" id="pm10_check" name="checkbox" onClick="toggleoff();enablein('pm10_check','pm10_input')" py-click="checkbox_xdata()">&nbsp&nbsp
+    <label>PM25</label>
+    <input type="checkbox" id="pm25_check" name="checkbox" onClick="toggleoff();enablein('pm25_check','pm25_input')" py-click="checkbox_xdata()">&nbsp&nbsp
+    <label>NO2</label>
+    <input type="checkbox" id="no2_check" name="checkbox" onClick="toggleoff();enablein('no2_check','no2_input')" py-click="checkbox_xdata()">&nbsp&nbsp
+    <label>Select All</label>
+    <input type="checkbox" id="all_check" name="checkbox" onClick="toggleon(this);enablein('co_check','co_input');enablein('oz_check','oz_input');enablein('pm10_check','pm10_input');enablein('pm25_check','pm25_input');enablein('no2_check','no2_input')" py-click="checkbox_xdata()">&nbsp&nbsp
+  </div>
 
-  <h1 class="lucida">AQI Predictor</h1>
-  <p>Enter in the values into the boxes and press the 'submit' button.</p>
-  <p>The predicted AQI value will appear in the 'output' box, as well as its category.</p>
-  <p><b>Make sure to have values inside every box.</b></p>
-  <br><br>
+  <br>
 
-  <label>CO Level: </label>
-  <input type="text" id="co_input">
+  <label>CO Level:</label>
+  <input type="text" id="co_input" name="textfield" disabled>
   <label>ppm</label>
   <br><br>
   <label>Ozone Level: </label>
-  <input type="text" id="oz_input">
+  <input type="text" id="oz_input" name="textfield" disabled>
   <label>ppb</label>
   <br><br>
   <label>PM10 Level: </label>
-  <input type="text" id="pm10_input">
+  <input type="text" id="pm10_input" name="textfield" disabled>
   <label>ug/m3</label>
   <br><br>
   <label>PM25 Level: </label>
-  <input type="text" id="pm25_input">
+  <input type="text" id="pm25_input" name="textfield" disabled>
   <label>ug/m3</label>
   <br><br>
   <label>NO2 Level: </label>
-  <input type="text" id="no2_input">
+  <input type="text" id="no2_input" name="textfield" disabled>
   <label>ppb</label>
   <br><br>
-  <button type="submit" py-click="my_function()">Submit</button>
+  <button onClick="clearin()">Clear</button> &nbsp
+  <button type="submit" py-click="process()">Submit</button>
   <br>
   <h3><u>Output:</u></h3>
   <div id="rect">
     <p id="output"></p>
     <p id="category"></p>
+  </div>
   </div>
 
   <py-config>
@@ -72,36 +94,69 @@
   </py-config>
 
   <py-script>
-    #predict with 2d list!!
-
     import pandas as pd
     import numpy as np
     import matplotlib.pyplot as plt
 
+    from js import document 
     from sklearn.linear_model import LinearRegression
     from sklearn.model_selection import train_test_split
     from pyodide.http import open_url
     from pyodide.ffi import create_proxy
 
+
     url = ("https://raw.githubusercontent.com/lextago/apes_proj/main/aqi2022-cook-county.csv")
 
     data = pd.read_csv(open_url(url))
-    x = data[["CO", "Ozone", "PM10", "PM25", "NO2"]].values
-    y = data["Overall AQI Value"].values
 
-    xtrain, xtest, ytrain, ytest = train_test_split(x, y)
+    xdata = []
 
-    model = LinearRegression().fit(xtrain, ytrain)
+    def checkbox_xdata():
+      global xdata
+      checked = []
+
+      if document.querySelector("#co_check").checked:
+        checked.append("CO")
+      if document.querySelector("#oz_check").checked:
+        checked.append("Ozone")
+      if document.querySelector("#pm10_check").checked:
+        checked.append("PM10")
+      if document.querySelector("#pm25_check").checked:
+        checked.append("PM25")
+      if document.querySelector("#no2_check").checked:
+        checked.append("NO2")
+
+      xdata = checked
     
-    def my_function():
+    def process():
+      predictdata = []
+      x = data[xdata].values
+      y = data["Overall AQI Value"].values
 
-      co_level = int(Element('co_input').element.value)
-      oz_level = int(Element('oz_input').element.value)
-      pm10_level = int(Element('pm10_input').element.value)
-      pm25_level = int(Element('pm25_input').element.value)
-      no2_level = int(Element('no2_input').element.value)
+      xtrain, xtest, ytrain, ytest = train_test_split(x, y)
 
-      predict = round(model.predict([[co_level, oz_level, pm10_level, pm25_level, no2_level]])[0],1)
+      model = LinearRegression().fit(xtrain, ytrain)
+      if document.querySelector("#co_check").checked:
+        co_level = int(Element('co_input').element.value)
+        predictdata.append(co_level)
+
+      if document.querySelector("#oz_check").checked:
+        oz_level = int(Element('oz_input').element.value)
+        predictdata.append(oz_level)
+
+      if document.querySelector("#pm10_check").checked:
+        pm10_level = int(Element('pm10_input').element.value)
+        predictdata.append(pm10_level)
+
+      if document.querySelector("#pm25_check").checked:
+        pm25_level = int(Element('pm25_input').element.value)
+        predictdata.append(pm25_level)
+
+      if document.querySelector("#no2_check").checked:
+        no2_level = int(Element('no2_input').element.value)
+        predictdata.append(no2_level)
+
+      predict = round(model.predict([predictdata])[0],1)
 
       Element('output').element.innerText = predict
 

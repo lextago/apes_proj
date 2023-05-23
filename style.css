@@ -1,23 +1,62 @@
+body {
+    margin:0px; 
+}
+
 h1{
-    font-family: "Lucida Console", Arial;
+    font-family: Verdana, Arial;
 }
 
 h2{
-    font-family: "Lucida Console", Arial;
+    font-family: Verdana, Arial;
     display: inline;
 }
 
 p{
-    font-family: "Lucida Console", Arial;
+    font-family: Verdana, Arial;
 }
 
-.lucida{
-    font-family: "Lucida Console", Arial;
+.verdana{
+    font-family: Verdana, Arial;
+}
+
+.title{
+    font-family: Verdana, Arial;
+    text-align: center;
 }
 
 #rect{
-    width: 500px;
-    height:100px;
-    padding: 10px;
+    background-color: white;
+    width: 50vw;
+    height: 200px;
+    padding: 5px;
     border: 1px solid black;
+}
+
+#sitehead{
+    font-family: Verdana, Arial;
+    width:100vw;
+    height:30px;
+    padding:10px;
+    background-color: #03045E;
+    color: #90E0EF;
+    position: fixed;
+    top:0px;
+}
+
+#top{
+    margin-top:50px;
+    text-align: center;
+}
+
+#noline{
+    color: #90E0EF;
+}
+
+#container{
+    padding-left:15vw;
+    padding-right:15vw;
+    padding-bottom:20%;
+    margin-left:10vw;
+    margin-right:10vw;
+    background-color: #CAF0F8;
 }

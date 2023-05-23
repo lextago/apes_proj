@@ -11,33 +11,39 @@
   </head>
 
 
-  <body>
-    <div style = "position:relative; background-color: #90E0EF;">
-      <h2 class="lucida">
-        <a href="index.html">Home</a>
+  <body style="background-color: white;">
+
+    <header id="sitehead">
+      <h2>
+        <p style="color:white; display: inline">AQI Predictor by Alex Tago</p>
+        &nbsp &nbsp &nbsp &nbsp
+        <a id="noline" href="index.html">Home</a>
         &nbsp
-        <a href="predictor.html">Predictor</a>
+        <a id="noline" href="predictor.html">Predictor</a>
         &nbsp
-        <a href="process.html">Process</a>
+        <a id="noline" href="process.html">Process</a>
         &nbsp
-        <a href="data.html">Data</a>
+        <a id="noline" href="data.html">Data</a>
         &nbsp
       </h2>
-    </div>
-    <p><b><u>Please be patient while the website loads!</b></u></p>
+    </header>
 
-    <h3>How it Works:</h3>
+    <div id="container" style="padding-bottom:5%;">
+    <p id="top"><b><u>Please be patient while the website loads!</b></u></p>
+
+    <h1 class="title">How it Works:</h1>
     <p>The <b><a href="data.html">data</a></b> being used is a csv file.<br>
-    The program uses a <b><a href="https://data-flair.training/blogs/python-libraries/" target="_blank" rel="noopener noreferrer">library</a></b> called pandas, which splits the data into x values and y.<br>
-    The program uses another library called scikit-learn, which splits the pairs of x and y into <b><a href="https://builtin.com/data-science/train-test-split#:~:text=let%E2%80%99s%20get%20started.-,What%20Is%20the%20Train%20Test%20Split%20Procedure%3F,-Train%20test%20split" target="_blank" rel="noopener noreferrer">training and testing</a></b> data.<br>
+    The program which splits the data into x and y values.<br>
+    The pairs of x and y are then split into <b><a href="https://builtin.com/data-science/train-test-split#:~:text=let%E2%80%99s%20get%20started.-,What%20Is%20the%20Train%20Test%20Split%20Procedure%3F,-Train%20test%20split" target="_blank" rel="noopener noreferrer">training and testing</a></b> data.<br>
     In short, the training data is used to <u>train</u> the model, and the testing data is used to <u>test</u> the model.<br><br>
     The program then creates a <b><a href="https://www.scribbr.com/statistics/multiple-linear-regression/#:~:text=Visualizing%20the%20results%20in%20a%20graph" target="_blank" rel="noopener noreferrer">multivariable linear regression</a></b> model using the training data.<br>
     The model creates regression lines to find the correlation between the x and y.<br>
-    Lastly, the model attempts to predict the y by plotting the testing data on the graph, predicting the y on the regression line, and finds the <br>
+    Lastly, the model attempts to predict the y by plotting the testing data on the graph, predicting the y on the regression line, and finds the
       accuracy by comparing the line to the points on the graph
     </p>
 
     <p id="text1"></p>
+    </div>
 
     <py-config>
         packages = ["numpy", "pandas", "matplotlib", "scikit-learn"]
@@ -48,6 +54,7 @@
         import numpy as np
         import matplotlib.pyplot as plt
 
+        from js import window
         from sklearn.linear_model import LinearRegression
         from sklearn.model_selection import train_test_split
         from pyodide.http import open_url
@@ -79,8 +86,6 @@
             actual = round(ytest[index], 4)
             print("Predicted AQI: ", y_pred, "Actual AQI: ", actual)
             print("")
-
-
     </py-script>
   </body>
 
